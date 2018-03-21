@@ -1,0 +1,3 @@
+Drupal to WP SQL Script (Replace db-name & drupal-db-name)
+
+INSERT INTO db-name.wp_posts ( ID, post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_name, post_modified, post_modified_gmt, post_type)  SELECT node.nid, node.uid, FROM_UNIXTIME(node.created), FROM_UNIXTIME(node.created), field_data_body.body_value, node.title, field_data_body.body_summary, REPLACE(LOWER(node.title), ' ', '-'), FROM_UNIXTIME(node.changed), FROM_UNIXTIME(node.changed),'post' FROM drupal-db-name.node, drupal-db-name.field_data_body WHERE node.type = 'blog' AND node.nid = field_data_body.entity_id
